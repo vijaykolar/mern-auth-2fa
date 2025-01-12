@@ -8,6 +8,7 @@ import { connectDB } from './database/database.';
 import { errorHandler } from './middlewares/error-handler';
 import { asyncHandler } from './middlewares/async-handler';
 import { HTTP_STATUS } from './config/http-config';
+import { BadRequestException } from './common/utils/catch-errors';
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.get(
     //     message: 'User not found',
     //   });
     // }
+
     res.status(HTTP_STATUS.OK).json({
       message: 'Hello app!!!',
     });
