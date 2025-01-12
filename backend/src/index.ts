@@ -1,12 +1,9 @@
-import express from "express";
 import dotenv from "dotenv";
+dotenv.config();
+import express, { Request, Response } from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import { config } from "./config/app.config";
-
-const BASE_PATH = config.BASE_PATH;
-
-dotenv.config();
 
 const app = express();
 
@@ -19,13 +16,10 @@ app.use(
     credentials: true,
   })
 );
+console.log(config);
 
-app.get("/", (req, res) => {
-  res.send("Hello World!!!");
-});
-
-app.get("/app", (req, res) => {
-  res.send("Hello World app");
+app.get("/", (req: Request, res: Response) => {
+  res.send("Hello World!");
 });
 
 app.listen(config.PORT, () => {
