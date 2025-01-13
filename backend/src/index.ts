@@ -8,8 +8,9 @@ import { connectDB } from './database/database.';
 import { errorHandler } from './middlewares/error-handler';
 import { asyncHandler } from './middlewares/async-handler';
 import { HTTP_STATUS } from './config/http-config';
-import { BadRequestException } from './common/utils/catch-errors';
+import { authRouters } from './modules/auth/auth-routes';
 
+const BASE_PATH = config.BASE_PATH;
 const app = express();
 
 // Middlewares
@@ -26,7 +27,7 @@ app.use(
 
 // Routes
 app.get(
-  '/',
+  BASE_PATH,
   asyncHandler(async (req: Request, res: Response, next: NextFunction) => {
     // const { email } = req.body;
     // const user = UserModel.find({ email });
@@ -42,13 +43,7 @@ app.get(
   }),
 );
 
-app.post('/', (req: Request, res: Response) => {
-  const { name, email } = req.body;
-  res.status(200).json({
-    name,
-    email,
-  });
-});
+app.use(`${BASE_PATH}/auth`, authRouters);
 
 app.use(errorHandler);
 
