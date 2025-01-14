@@ -21,9 +21,10 @@ export class AuthController {
         userAgent,
       });
 
-      this.authService.register(body);
+      const { user } = await this.authService.register(body);
       res.status(HTTP_STATUS.CREATED).json({
         message: 'User registered successfully!',
+        data: user,
       });
     },
   );
